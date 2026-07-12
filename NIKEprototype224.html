@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NIKEprototype</title>
+</head>
+<body>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SURGE — Move Different</title>
+<style>
+  :root{
+    --ink:#0a0a0a;
+    --paper:#f5f3ee;
+    --volt:#c8ff3d;
+    --concrete:#8b887f;
+    --ember:#ff4e2a;
+    --line: rgba(10,10,10,0.12);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3, .display{
+    font-family:'Archivo Black','Arial Black',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:-0.02em;
+    line-height:0.9;
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  .wrap{max-width:1400px;margin:0 auto;padding:0 40px;}
+
+  ::selection{background:var(--volt);color:var(--ink);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;
+    z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:24px 40px;
+    mix-blend-mode:difference;
+    color:var(--paper);
+  }
+  .logo{
+    font-family:'Archivo Black',sans-serif;
+    font-size:22px;
+    letter-spacing:0.02em;
+  }
+  .nav-links{display:flex;gap:36px;font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;}
+  .nav-links a{opacity:0.85;transition:opacity .2s;}
+  .nav-links a:hover{opacity:1;}
+  .nav-cta{
+    font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
+    border:1px solid currentColor;
+    padding:8px 18px;
+    border-radius:999px;
+  }
+  @media(max-width:800px){ .nav-links{display:none;} }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:140px 0 0 0;
+    overflow:hidden;
+  }
+
+  .hero-speedline{
+    position:absolute;
+    inset:0;
+    z-index:0;
+  }
+
+  .hero-content{
+    position:relative;
+    z-index:2;
+    padding-bottom:60px;
+  }
+
+  .hero-eyebrow{
+    display:flex;align-items:center;gap:10px;
+    font-size:13px;font-weight:700;letter-spacing:0.15em;
+    text-transform:uppercase;color:var(--ember);
+    margin-bottom:20px;
+  }
+  .hero-eyebrow::before{
+    content:'';width:8px;height:8px;background:var(--ember);border-radius:50%;
+    animation:pulse 1.6s infinite ease-in-out;
+  }
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:.3;} }
+
+  .hero h1{
+    font-size:clamp(64px, 12vw, 168px);
+    display:flex;flex-direction:column;
+  }
+  .hero h1 span{display:block;}
+  .hero h1 .outline{
+    -webkit-text-stroke:2px var(--ink);
+    color:transparent;
+  }
+  .hero h1 .accent{color:var(--ember);}
+
+  .hero-sub{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    margin-top:36px;
+    border-top:1px solid var(--line);
+    padding-top:28px;
+    gap:40px;
+    flex-wrap:wrap;
+  }
+  .hero-sub p{
+    max-width:420px;
+    font-size:16px;
+    color:#333;
+    line-height:1.5;
+  }
+  .hero-stats{display:flex;gap:48px;}
+  .hero-stats div{text-align:right;}
+  .hero-stats .num{font-family:'Archivo Black',sans-serif;font-size:28px;}
+  .hero-stats .lbl{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--concrete);}
+
+  /* Abstract shoe-motion mark, original geometric silhouette */
+  .mark{
+    position:absolute;
+    right:-6%;
+    top:14%;
+    width:56%;
+    max-width:760px;
+    z-index:1;
+    opacity:0.96;
+  }
+
+  /* ---------- MARQUEE ---------- */
+  .marquee{
+    background:var(--ink);
+    color:var(--paper);
+    padding:16px 0;
+    overflow:hidden;
+    white-space:nowrap;
+    border-top:1px solid var(--ink);
+    border-bottom:1px solid var(--ink);
+  }
+  .marquee-track{
+    display:inline-flex;
+    gap:40px;
+    animation:scroll 22s linear infinite;
+  }
+  .marquee span{
+    font-family:'Archivo Black',sans-serif;
+    font-size:18px;
+    text-transform:uppercase;
+    letter-spacing:0.03em;
+    display:flex;align-items:center;gap:40px;
+  }
+  .marquee span::after{content:'●';color:var(--volt);font-size:10px;}
+  @keyframes scroll{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+
+  /* ---------- SECTION SHARED ---------- */
+  section{padding:120px 0;}
+  .section-head{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    margin-bottom:64px;
+    gap:24px;flex-wrap:wrap;
+  }
+  .section-head h2{font-size:clamp(36px,6vw,64px);}
+  .section-head p{max-width:340px;color:var(--concrete);font-size:15px;line-height:1.5;}
+  .kicker{
+    font-size:13px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;
+    color:var(--ember);margin-bottom:14px;display:block;
+  }
+
+  /* ---------- COLLECTION GRID ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:2px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .card{
+    background:var(--paper);
+    padding:36px 28px;
+    position:relative;
+    min-height:380px;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    transition:background .3s ease;
+  }
+  .card:hover{background:var(--ink);color:var(--paper);}
+  .card:hover .card-tag{color:var(--volt);}
+  .card-num{
+    position:absolute;top:28px;left:28px;
+    font-size:12px;color:var(--concrete);
+    font-weight:600;
+  }
+  .card-shape{
+    position:absolute;
+    top:24px;right:24px;
+    width:64px;height:64px;
+    border-radius:50%;
+    border:1.5px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    transition:transform .4s ease, border-color .3s;
+  }
+  .card:hover .card-shape{transform:rotate(180deg);border-color:var(--volt);}
+  .card-shape svg{width:22px;height:22px;}
+  .card h3{font-size:26px;margin-bottom:8px;}
+  .card-tag{font-size:13px;color:var(--concrete);letter-spacing:0.03em;transition:color .3s;}
+  @media(max-width:900px){ .grid{grid-template-columns:1fr;} }
+
+  /* ---------- STAT BAND ---------- */
+  .stat-band{
+    background:var(--ink);
+    color:var(--paper);
+    padding:100px 0;
+  }
+  .stat-band .wrap{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:40px;
+  }
+  .stat{border-left:1px solid rgba(245,243,238,0.2);padding-left:24px;}
+  .stat .num{font-family:'Archivo Black',sans-serif;font-size:clamp(40px,5vw,56px);color:var(--volt);}
+  .stat .lbl{font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(245,243,238,0.6);margin-top:8px;}
+  @media(max-width:800px){ .stat-band .wrap{grid-template-columns:repeat(2,1fr);row-gap:48px;} }
+
+  /* ---------- SPLIT FEATURE ---------- */
+  .split{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:80px;
+    align-items:center;
+  }
+  .split-visual{
+    aspect-ratio:1/1;
+    background:linear-gradient(160deg,var(--ink) 0%, #262620 100%);
+    border-radius:24px;
+    position:relative;
+    overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .split-visual svg{width:70%;height:70%;}
+  .split h2{font-size:clamp(32px,5vw,52px);margin-bottom:24px;}
+  .split p{color:#333;font-size:16px;line-height:1.7;margin-bottom:32px;max-width:460px;}
+  .feature-list{display:flex;flex-direction:column;gap:18px;}
+  .feature-list li{
+    display:flex;gap:16px;align-items:flex-start;
+    list-style:none;
+    font-size:15px;
+    color:#333;
+  }
+  .feature-list .dot{
+    width:8px;height:8px;border-radius:50%;background:var(--ember);
+    margin-top:7px;flex-shrink:0;
+  }
+  @media(max-width:900px){ .split{grid-template-columns:1fr;gap:48px;} }
+
+  /* ---------- CTA ---------- */
+  .cta-section{
+    background:var(--volt);
+    padding:140px 0;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .cta-section h2{
+    font-size:clamp(48px,9vw,120px);
+    margin-bottom:32px;
+  }
+  .cta-section p{
+    font-size:17px;color:#1a1a1a;max-width:480px;margin:0 auto 40px;
+  }
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--ink);color:var(--paper);
+    padding:18px 40px;
+    border-radius:999px;
+    font-weight:700;font-size:14px;letter-spacing:0.06em;text-transform:uppercase;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .btn:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(0,0,0,0.25);}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--ink);color:var(--paper);
+    padding:80px 0 32px;
+  }
+  .footer-top{
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr 1fr;
+    gap:40px;
+    padding-bottom:64px;
+    border-bottom:1px solid rgba(245,243,238,0.15);
+  }
+  .footer-top .logo{font-size:28px;margin-bottom:16px;}
+  .footer-top p{color:rgba(245,243,238,0.55);font-size:14px;max-width:260px;line-height:1.6;}
+  .foot-col h4{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,243,238,0.4);margin-bottom:18px;}
+  .foot-col a{display:block;font-size:14px;color:rgba(245,243,238,0.8);margin-bottom:12px;transition:color .2s;}
+  .foot-col a:hover{color:var(--volt);}
+  .footer-bottom{
+    display:flex;justify-content:space-between;
+    padding-top:28px;
+    font-size:13px;color:rgba(245,243,238,0.4);
+    flex-wrap:wrap;gap:12px;
+  }
+  @media(max-width:800px){ .footer-top{grid-template-columns:1fr 1fr;} }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">SURGE</div>
+  <div class="nav-links">
+    <a href="#collection">Collection</a>
+    <a href="#technology">Technology</a>
+    <a href="#story">Story</a>
+  </div>
+  <a href="#cta" class="nav-cta">Shop Now</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <svg class="mark" viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M40 260 C 120 260, 160 180, 260 170 C 340 162, 380 120, 460 100 C 500 90, 540 95, 570 115"
+          stroke="#0a0a0a" stroke-width="3" fill="none" opacity="0.15"/>
+    <path d="M20 300 C 100 300, 150 220, 250 205 C 330 193, 370 150, 450 128 C 495 116, 540 120, 575 145"
+          stroke="#ff4e2a" stroke-width="4" fill="none" opacity="0.9"/>
+    <path d="M60 220 C 130 220, 170 150, 260 140 C 335 132, 375 95, 450 78"
+          stroke="#c8ff3d" stroke-width="10" stroke-linecap="round" fill="none" opacity="0.9"/>
+    <circle cx="575" cy="145" r="10" fill="#ff4e2a"/>
+    <circle cx="450" cy="78" r="7" fill="#c8ff3d"/>
+  </svg>
+
+  <div class="wrap hero-content">
+    <div class="hero-eyebrow">Spring Drop · Now Live</div>
+    <h1>
+      <span>Move</span>
+      <span class="outline">Different.</span>
+      <span class="accent">Not Louder.</span>
+    </h1>
+    <div class="hero-sub">
+      <p>Engineered from the ground contact up — every silhouette in this drop is built around one idea: motion should feel like it belongs to you.</p>
+      <div class="hero-stats">
+        <div>
+          <div class="num">2.4M</div>
+          <div class="lbl">Runners Logged</div>
+        </div>
+        <div>
+          <div class="num">14oz</div>
+          <div class="lbl">Avg. Weight</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Free Shipping Over $80</span>
+    <span>New Colorways Weekly</span>
+    <span>Member Early Access</span>
+    <span>Made With Recycled Foam</span>
+    <span>Free Shipping Over $80</span>
+    <span>New Colorways Weekly</span>
+    <span>Member Early Access</span>
+    <span>Made With Recycled Foam</span>
+  </div>
+</div>
+
+<!-- COLLECTION -->
+<section id="collection">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="kicker">The Lineup</span>
+        <h2>Shop the<br>Collection</h2>
+      </div>
+      <p>Four silhouettes, one philosophy — built for the mile you're actually running, not the one on the poster.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="card-num">01</div>
+        <div class="card-shape"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 19l4-9 4 5 4-11 2 15"/></svg></div>
+        <h3>Pulse Runner</h3>
+        <div class="card-tag">Daily Trainer · $128</div>
+      </div>
+      <div class="card">
+        <div class="card-num">02</div>
+        <div class="card-shape"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16"/></svg></div>
+        <h3>Velocity Mid</h3>
+        <div class="card-tag">Cross Trainer · $142</div>
+      </div>
+      <div class="card">
+        <div class="card-num">03</div>
+        <div class="card-shape"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16M12 4l8 8-8 8"/></svg></div>
+        <h3>Drift Slide</h3>
+        <div class="card-tag">Recovery · $64</div>
+      </div>
+      <div class="card">
+        <div class="card-num">04</div>
+        <div class="card-shape"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 17l6-6 4 4 8-8"/></svg></div>
+        <h3>Apex Trail</h3>
+        <div class="card-tag">All-Terrain · $158</div>
+      </div>
+      <div class="card">
+        <div class="card-num">05</div>
+        <div class="card-shape"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="3"/></svg></div>
+        <h3>Groundwork</h3>
+        <div class="card-tag">Lifestyle · $110</div>
+      </div>
+      <div class="card">
+        <div class="card-num">06</div>
+        <div class="card-shape"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v18M5 8l7-5 7 5M5 16l7 5 7-5"/></svg></div>
+        <h3>Court Zero</h3>
+        <div class="card-tag">Basketball · $150</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAT BAND -->
+<div class="stat-band">
+  <div class="wrap">
+    <div class="stat"><div class="num">30M+</div><div class="lbl">Pairs Shipped</div></div>
+    <div class="stat"><div class="num">96%</div><div class="lbl">Repeat Buyers</div></div>
+    <div class="stat"><div class="num">180</div><div class="lbl">Countries Reached</div></div>
+    <div class="stat"><div class="num">12yrs</div><div class="lbl">In Development</div></div>
+  </div>
+</div>
+
+<!-- TECHNOLOGY / SPLIT -->
+<section id="technology">
+  <div class="wrap split">
+    <div class="split-visual">
+      <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="70" stroke="#c8ff3d" stroke-width="2" opacity="0.5"/>
+        <circle cx="100" cy="100" r="46" stroke="#c8ff3d" stroke-width="2" opacity="0.8"/>
+        <path d="M40 120 C 70 130, 90 90, 130 95 C 155 98, 165 80, 175 65" stroke="#ff4e2a" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="175" cy="65" r="6" fill="#ff4e2a"/>
+      </svg>
+    </div>
+    <div>
+      <span class="kicker">Cushion System</span>
+      <h2>Reactive Foam,<br>Rewritten.</h2>
+      <p>Our dual-density midsole reads your stride in real time — soft enough to absorb, dense enough to return. It's not padding. It's propulsion.</p>
+      <ul class="feature-list">
+        <li><span class="dot"></span>38% energy return, lab-verified across 10,000 gait cycles</li>
+        <li><span class="dot"></span>Recycled-content foam, same ride, lighter footprint</li>
+        <li><span class="dot"></span>Adaptive arch cradle molds to your foot after mile one</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta" class="cta-section">
+  <div class="wrap">
+    <h2>Get<br>Moving.</h2>
+    <p>Join the list for early drop access, restock alerts, and member-only colorways.</p>
+    <a href="#" class="btn">Shop the Drop →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="story">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <div class="logo">SURGE</div>
+        <p>Footwear built around one question: what does your stride actually need? Founded by a small crew of runners who got tired of guessing.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Shop</h4>
+        <a href="#">Running</a>
+        <a href="#">Trail</a>
+        <a href="#">Lifestyle</a>
+        <a href="#">Accessories</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Sustainability</a>
+        <a href="#">Careers</a>
+        <a href="#">Press</a>
+      </div>
+      <div class="foot-col">
+        <h4>Support</h4>
+        <a href="#">Size Guide</a>
+        <a href="#">Returns</a>
+        <a href="#">Contact</a>
+        <a href="#">Track Order</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Surge Athletics. All rights reserved.</div>
+      <div>Fictional brand, built for demonstration.</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
+</body>
+</html>
